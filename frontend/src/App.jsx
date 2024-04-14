@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login';
 import AppLayout from './layouts/AppLayout';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
@@ -12,6 +11,7 @@ import Womens from './pages/Womens';
 import Kids from './pages/Kids';
 import ProductDetailPage from './pages/ProductDetailPage';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login';
 
 
 function App() {
@@ -22,12 +22,12 @@ function App() {
           path="/"
           element={<AppLayout />}
         >
-          <Route path='/login' element={<Login/>} />
           <Route
             path="/"
             element={<MainLayout />}
           >
             <Route index element={<HomePage/>} />
+            <Route path='login' element={<Login/>} />
             <Route path="profile" element={<Profile/>} />
             <Route path="favorites" element={<Favorites />} />
             <Route path="cart" element={<MyCart />} />

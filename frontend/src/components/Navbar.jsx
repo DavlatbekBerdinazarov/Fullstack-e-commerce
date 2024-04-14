@@ -16,10 +16,10 @@ export default function Navbar() {
   return (
     <header className="w-full py-2 border-b shadow-sm">
       <nav className="md:container mx-auto lg:px-10 px-[15px] flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <Link to='/' className="flex items-center gap-2">
           <img className="w-14" src={big_logo} alt="big logo" />
           <h1 className="uppercase text-3xl font-medium">Shopper</h1>
-        </div>
+        </Link>
 
         {/* category */}
         <ul className="flex gap-6 font-medium">

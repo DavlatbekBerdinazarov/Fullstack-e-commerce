@@ -2,11 +2,14 @@ import { Button } from "@material-tailwind/react";
 import big_logo from "../components/Assets/logo_big.png";
 import cart_icon from "../components/Assets/cart_icon.png";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ShoppingCartContext } from "../layouts/MainLayout";
 
 export default function Navbar() {
   const [activeNav, setActiveNav] = useState("/");
   const location = useLocation();
+
+  const { cartData } = useContext(ShoppingCartContext)
 
   useEffect(() => {
     const pathname = location.pathname;
@@ -70,9 +73,9 @@ export default function Navbar() {
 
           <Link to="/cart" className="relative active:bg-blue-gray-50">
             <img className="w-8 h-8" src={cart_icon} alt="cart icon" />
-            <div className="absolute -top-0 left-6 h-5 w-5 bg-red-500 rounded-full text-white flex items-center justify-center text-sm">
-              1
-            </div>
+            {cartData.length > 0 && <div className="absolute -top-0 left-6 h-5 w-5 bg-red-500 rounded-full text-white flex items-center justify-center text-sm">
+              { cartData.length }
+            </div>}
           </Link>
         </div>
       </nav>

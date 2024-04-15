@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import newCollectinsData from "../Assets/new_collections";
 
 export default function NewCollections() {
@@ -11,18 +12,20 @@ export default function NewCollections() {
       </div>
 
       <main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16">
-        {newCollectinsData.map((girls) => {
+        {newCollectinsData.map((product) => {
           return (
-            <div key={girls.id} className=" col-span-1">
-              <img src={girls.image} alt="girl 1" />
+            <Link to={`/product/${product.id}`} key={product.id} className=" col-span-1">
+              <div className=" overflow-hidden">
+                <img className=" hover:scale-[1.1] duration-200" src={product.image} alt="girl 1" />
+              </div>
               <h2 className="text-sm font-semibold leading-6">
-                {girls.name}
+                {product.name}
               </h2>
               <h2 className=" text-black font-semibold">
-                ${girls.new_price}{" "}
-                <span className="ml-4 text-gray-500 line-through">${girls.old_price}</span>
+                ${product.new_price}{" "}
+                <span className="ml-4 text-gray-500 line-through">${product.old_price}</span>
               </h2>
-            </div>
+            </Link>
           );
         })}
       </main>

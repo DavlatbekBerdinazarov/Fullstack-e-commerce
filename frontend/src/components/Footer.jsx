@@ -1,16 +1,17 @@
 import { Button } from "@material-tailwind/react";
 import big_logo from "../components/Assets/logo_big.png";
 import cart_icon from "../components/Assets/cart_icon.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import whatsappIcon from './Assets/whatsapp_icon.png'
 import instagramIcon from './Assets/instagram_icon.png'
 import pinterestIcon from './Assets/pintester_icon.png'
 
 
 export default function Footer() {
+  const path = useLocation()
 
   return (
-    <footer className="w-full py-2 border-b shadow-sm">
+    <footer className={`w-full py-2 border-b shadow-sm mt-12 pt-6 ${path.pathname == '/login' ? 'hidden' : 'null'}`}>
       <div className="md:container mx-auto lg:px-10 px-[15px] ">
         <div className="flex flex-col gap-6 items-center mb-8">
           <Link to='/' className="flex items-center gap-2">

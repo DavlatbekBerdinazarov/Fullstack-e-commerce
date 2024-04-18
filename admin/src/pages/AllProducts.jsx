@@ -17,7 +17,7 @@ export default function AllProducts() {
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:4545/api/allproducts');
-      setAllProducts(response.data);
+      setAllProducts(response.data.reverse());
     } catch (error) {
       setError(error.message);
     } finally {

@@ -1,21 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
-import all_product from "../components/Assets/all_product";
 import ProductDetails from "../components/ProuductDetails/ProductDetails";
 import { ProductDescription } from "../components/ProuductDetails/ProductDescription";
 import RelatedProducts from "../components/ProuductDetails/RelatedProducts";
+import axios from "axios";
 
 export default function ProductDetailPage() {
   const [thisProduct, setThisProduct] = useState(null);
   const [thisObject, setThisObject] = useState(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const paramsId = useParams().id;
+  console.log(paramsId);
 
   useEffect(() => {
-    const selectedProduct = all_product.filter(product => product.id == paramsId);
-    setThisProduct(selectedProduct);
-  }, [paramsId]);
+    fetchAllData();
+  }, []);
+
+  const fetchAllData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4545/api/allproducts");
+      setData(response.data);
+      setLoading(false); // Move setLoading to here so it triggers after data is set
+    } catch (error) {
+      setError(error.message);
+      setLoading(false); // Set loading to false even in case of error
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      const selectedProduct = data.filter(product => product._id == paramsId);
+      setThisProduct(selectedProduct);
+    }
+
+  }, [paramsId, data]);
 
   useEffect(() => {
     if (thisProduct && thisProduct.length > 0) {
@@ -24,7 +46,21 @@ export default function ProductDetailPage() {
     }
   }, [thisProduct]);
 
-  const name = thisObject ? thisObject.name : '';
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!thisProduct || thisProduct.length === 0) {
+    return <div>No products available</div>;
+  }
+
+
+  const title = thisObject ? thisObject.title : '';
   const category = thisObject ? thisObject.category : ''; 
 
   return (
@@ -40,7 +76,7 @@ export default function ProductDetailPage() {
           {category} <FaAngleRight />
         </Link>
         <Link to="/" className="flex items-center gap-2 capitalize">
-          {name} <FaAngleRight />
+          {title} <FaAngleRight />
         </Link>
       </header>
 

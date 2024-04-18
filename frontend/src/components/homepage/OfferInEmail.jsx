@@ -16,7 +16,7 @@ export default function OfferInEmail() {
               Subscribe to our newsletter and stay updated
             </p>
 
-            <from className="relative flex w-full max-w-[32rem] mx-auto">
+            <form className="relative flex w-full max-w-[32rem] mx-auto">
               <Input
                 type="email"
                 placeholder="Email Address"
@@ -35,7 +35,7 @@ export default function OfferInEmail() {
               >
                 Subscribe
               </Button>
-            </from>
+            </form>
           </div>
         </div>
       </main>

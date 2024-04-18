@@ -1,30 +1,59 @@
 import { Button, Card } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
 import { useState } from "react";
+import axios from "axios";
 
 export default function AddProducts() {
   const [value, setValue] = useState("react");
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+  const [data, setData] = useState({
+    title: "",
+    new_price: "",
+    old_price: "",
+    image: "",
+    category: "",
+  });
+
+  function handle(e) {
+    const newData = { ...data };
+    newData[e.target.id] = e.target.value;
+    setData(newData);
+    
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+   console.log(data)
+    axios
+      .post("http://localhost:4545/api/addproduct",data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(1111,err);
+      });
   };
+  
+
 
   return (
     <div className="w-full pl-5 pt-5 ">
-      <Card className="h-[85vh] w-3/4 py-8 px-16 bg-[#f5faff]">
+      <Card className="h-[85vh] xl:w-3/4 py-8 px-16 bg-[#f5faff]">
         <h2 className="text-center font-semibold text-2xl text-black pb-4">
           Add Product
         </h2>
-        <form className="max-h-full">
+        <form onSubmit={onSubmitHandler} className="max-h-full">
           <label htmlFor="title" className="my-3">
             Product Title
           </label>
           <div className="w-full my-2">
             <Input
               id="title"
-              type="email"
-              placeholder="Email Address"
+              onChange={(e) => handle(e)}
+              value={data.title}
+              type="text"
+              placeholder="Title"
               className="!border !border-gray-300 bg-white rounded-none py-6 text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
               labelProps={{
                 className: "hidden",
@@ -34,14 +63,16 @@ export default function AddProducts() {
           </div>
           <div className="flex gap-5 my-10">
             <div className="w-full">
-              <label htmlFor="title" className="my-3">
-                Price
+              <label htmlFor="new_price" className="my-3">
+                New Price
               </label>
               <div className="w-full my-2">
                 <Input
-                  id="title"
-                  type="email"
-                  placeholder="Email Address"
+                  id="new_price"
+                  onChange={(e) => handle(e)}
+                  value={data.new_price}
+                  type="number"
+                  placeholder="New Price"
                   className="!border !border-gray-300 bg-white rounded-none py-6 text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                   labelProps={{
                     className: "hidden",
@@ -51,14 +82,16 @@ export default function AddProducts() {
               </div>
             </div>
             <div className="w-full">
-              <label htmlFor="title" className="my-3">
-                Offer Price
+              <label htmlFor="old_price" className="my-3">
+                Old Price
               </label>
               <div className="w-full my-2">
                 <Input
-                  id="title"
-                  type="email"
-                  placeholder="Email Address"
+                  id="old_price"
+                  onChange={(e) => handle(e)}
+                  value={data.old_price}
+                  type="number"
+                  placeholder="Old Price"
                   className="!border !border-gray-300 bg-white rounded-none py-6 text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                   labelProps={{
                     className: "hidden",
@@ -69,11 +102,12 @@ export default function AddProducts() {
             </div>
           </div>
           <div className="relative inline-block w-1/3">
-            <label htmlFor="">Category</label>
+            <label htmlFor="category">Category</label>
             <select
+              id="category"
               className="block mt-2 appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              value={selectedOption}
-              onChange={handleChange}
+              onChange={(e) => handle(e)}
+              value={data.category}
             >
               <option value="">Select option</option>
               <option value="men">Men</option>
@@ -84,13 +118,15 @@ export default function AddProducts() {
           </div>
 
           <div className="my-6 w-2/3">
-            <label htmlFor="title" className="my-3">
+            <label htmlFor="image" className="my-3">
               Image url
             </label>
             <div className="w-full my-2">
               <Input
-                id="title"
+                id="image"
                 type="text"
+                onChange={(e) => handle(e)}
+                value={data.image}
                 placeholder="Image url"
                 className="!border !border-gray-300 bg-white rounded-none py-6 text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{

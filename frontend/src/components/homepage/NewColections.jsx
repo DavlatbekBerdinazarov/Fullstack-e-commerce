@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import newCollectinsData from "../Assets/new_collections";
+import { useEffect, useState } from "react";
 
 export default function NewCollections() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    
+  })
   return (
     <section className="py-12">
       <div className="w-[400px] mx-auto flex justify-center flex-col items-center gap-2">

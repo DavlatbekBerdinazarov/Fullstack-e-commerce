@@ -9,15 +9,27 @@ import {
     Button,
   } from "@material-tailwind/react";
   import { useState } from "react";
+  import { useNavigate } from "react-router-dom"
   
   export default function Login() {
-    const [switchLogin, setSwitchLogin] = useState(true)
+    const [switchLogin, setSwitchLogin] = useState(true);
+
+    const navigate = useNavigate();
+
+    const onSubmitSignUp = (e) => {
+      e.preventDefault();
+      navigate('/dashboard');
+    };
+  
+    const onSubmitSignIn = (e) => {
+      e.preventDefault();
+      navigate('/dashboard');
+    };
   
     return (
       <div className="bg-gradient-to-b from-[#fde1ff] to-[#ffffff] h-[90vh]">
         {switchLogin ? (<form
-          action="/login"
-          method="post"
+          onSubmit={onSubmitSignIn}
           className="h-full flex items-center justify-center"
         >
           <Card className="w-[560px]">
@@ -63,8 +75,7 @@ import {
         </form>)
           :
         (<form
-          action="/login"
-          method="post"
+          onSubmit={onSubmitSignUp}
           className="h-full flex items-center justify-center"
         >
           <Card className="w-[560px]">

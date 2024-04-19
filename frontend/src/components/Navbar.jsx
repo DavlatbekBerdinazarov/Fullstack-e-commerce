@@ -7,14 +7,25 @@ import { ShoppingCartContext } from "../layouts/MainLayout";
 
 export default function Navbar() {
   const [activeNav, setActiveNav] = useState("/");
+  const [username, setUsername] = useState('');
   const location = useLocation();
 
-  const { cartData } = useContext(ShoppingCartContext)
+  const { cartData } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     const pathname = location.pathname;
     setActiveNav(pathname);
+
+  // Check if user is logged in and get username from localStorage
+  let loggedInUser = localStorage.getItem('user');
+  let parsedUserData = JSON.parse(loggedInUser);
+  if (parsedUserData && parsedUserData.username) {
+    setUsername(parsedUserData.username);
+  }
+  console.log(JSON.parse(loggedInUser));
   }, [location]);
+
+  console.log(username)
 
   return (
     <header className="w-full py-2 border-b shadow-sm">
@@ -62,14 +73,28 @@ export default function Navbar() {
 
         {/* cart login */}
         <div className="flex gap-5 items-center select-none">
-          <Link to="/login">
-            <Button
-              variant="outlined"
-              className="rounded-full capitalize font-medium text-sm px-8"
-            >
-              login
-            </Button>
-          </Link>
+          {username ? (
+            <div className="flex items-center">
+              <span className="mr-2 text-sm">Welcome, {username}</span>
+              <Link to="/logout">
+                <Button
+                  variant="outlined"
+                  className="rounded-full capitalize font-medium text-sm px-8"
+                >
+                  Logout
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Link to="/login">
+              <Button
+                variant="outlined"
+                className="rounded-full capitalize font-medium text-sm px-8"
+              >
+                Login
+              </Button>
+            </Link>
+          )}
 
           <Link to="/cart" className="relative active:bg-blue-gray-50">
             <img className="w-8 h-8" src={cart_icon} alt="cart icon" />

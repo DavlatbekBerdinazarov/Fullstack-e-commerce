@@ -19,13 +19,13 @@ export default function MainLayout() {
 
   const handleAddToCart = (selectedProduct) => {
     const productExists = cartData.some(
-      (product) => product.id === selectedProduct.id
+      (product) => product._id === selectedProduct._id
     );
 
     if (productExists) {
       // Agar mahsulot allaqachon savatda mavjud bo'lsa, uning quantity'sini o'zgartiramiz
       const updatedCartData = cartData.map((product) =>
-        product.id === selectedProduct.id
+        product._id === selectedProduct._id
           ? { ...product, quantity: product.quantity + 1 }
           : product
       );
@@ -45,14 +45,14 @@ export default function MainLayout() {
   );
 
   // my cart page
-  const handleRemoveFromCart = (id) => {
-    const newCartData = cartData.filter((product) => product.id !== id);
+  const handleRemoveFromCart = (_id) => {
+    const newCartData = cartData.filter((product) => product._id !== _id);
     setCartData(newCartData);
   };
 
-  const handleRemoveQuantityFromCart = (id) => {
+  const handleRemoveQuantityFromCart = (_id) => {
     const updatedCartData = cartData.map((product) =>
-      product.id === id
+      product._id === _id
         ? { ...product, quantity: Math.max(0, product.quantity - 1) }
         : product
     );

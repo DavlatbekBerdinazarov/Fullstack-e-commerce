@@ -8,7 +8,7 @@ export default function ProductDetails({ data }) {
 
   const { handleAddToCart } = useContext(ShoppingCartContext);
 
-
+  console.log(data);
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function ProductDetails({ data }) {
 
               <div className="flex flex-col justify-between gap-1">
                 <h1 className="text-3xl font-semibold">
-                  {product.name}
+                  {product.title}
                 </h1>
 
                 <div className="my-2">

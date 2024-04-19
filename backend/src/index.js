@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const pagesRoute = require('./routes/pages/allproducts');
+const loginRoute = require('./routes/auth/auth');
 const mongoose = require('mongoose');
 require("dotenv").config();
 
@@ -10,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use('/api',pagesRoute);
+app.use('/api',loginRoute);
 
 mongoose
   .connect(process.env.MONGO_URI, {

@@ -8,29 +8,6 @@ import { Link } from "react-router-dom";
 
 const TABLE_HEAD = ["Products", "name", "price", "Quantity", "Total", "Remove"];
 
-const TABLE_ROWS = [
-  {
-    image: img,
-    name: "John Michael Smith - List of Products",
-    new_price: "$80",
-  },
-  {
-    image: img,
-    name: "John Michael Smith - List of Products",
-    new_price: "$80",
-  },
-  {
-    image: img,
-    name: "John Michael Smith - List of Products",
-    new_price: "$80",
-  },
-  {
-    image: img,
-    name: "John Michael Smith - List of Products",
-    new_price: "$80",
-  },
-];
-
 export function ShoppingCartTable() {
   const [email, setEmail] = useState("");
   const onChange = ({ target }) => setEmail(target.value);
@@ -54,23 +31,23 @@ export function ShoppingCartTable() {
             </tr>
           </thead>
           <tbody>
-            {cartData.map(({ image, name, new_price, id, quantity }, index) => {
-              const isLast = index === TABLE_ROWS.length - 1;
+            {cartData.map(({ image, title, new_price, _id, quantity }, index) => {
+              const isLast = index === cartData.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-black";
 
               return (
-                <tr key={name}>
+                <tr key={title}>
                   <td className={classes}>
                     <Link
                       as="div"
-                      to={`/product/${id}`}
+                      to={`/product/${_id}`}
                       className="block w-16 h-16"
                     >
                       <img src={image} alt="name" />
                     </Link>
                   </td>
                   <td className={classes}>
-                    <div className="font-semibold">{name}</div>
+                    <div className="font-semibold">{title}</div>
                   </td>
                   <td className={classes}>
                     <div className="font-semibold">{new_price}</div>
@@ -84,7 +61,7 @@ export function ShoppingCartTable() {
                   <td className={classes}>
                     <div className="flex justify-center text-center">
                       <IoClose
-                        onClick={() => handleRemoveFromCart(id)}
+                        onClick={() => handleRemoveFromCart(_id)}
                         className="font-semibold text-2xl"
                       />
                     </div>
@@ -128,13 +105,13 @@ export function ShoppingCartTable() {
         <div className="w-1/3">
           <div>
             <h1>If you have a promo code eneter here</h1>
-            <from className="relative flex w-full max-w-[32rem] mx-auto mt-6">
+            <form className="relative flex w-full max-w-[32rem] mx-auto mt-6">
               <Input
                 type="email"
                 placeholder="Enter Coupon"
                 className="!border !border-gray-300 rounded-none py-6 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{
-                  className: "hidden",
+                  className: "h_idden",
                 }}
                 onChange={onChange}
                 containerProps={{ className: "min-w-[100px]" }}
@@ -147,7 +124,7 @@ export function ShoppingCartTable() {
               >
                 Submit
               </Button>
-            </from>
+            </form>
           </div>
         </div>
       </div>

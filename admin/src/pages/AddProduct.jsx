@@ -3,6 +3,7 @@ import { Input } from "@material-tailwind/react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
   const [data, setData] = useState({
@@ -12,6 +13,8 @@ export default function AddProducts() {
     image: "",
     category: "",
   });
+
+  const navigate = useNavigate();
 
   function handle(e) {
     const newData = { ...data };
@@ -27,6 +30,7 @@ export default function AddProducts() {
       .post("http://localhost:4545/api/addproduct",data)
       .then((res) => {
         console.log(res);
+         navigate("/dashboard");
       })
       .catch((err) => {
         console.log(1111,err);

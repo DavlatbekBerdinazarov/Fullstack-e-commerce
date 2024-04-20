@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { ShoppingCartContext } from "../../layouts/MainLayout";
 import { Button, Input } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { PaymentDialog } from "./PaymentDialog";
 
 const TABLE_HEAD = ["Products", "name", "price", "Quantity", "Total", "Remove"];
 
@@ -16,8 +17,8 @@ export function ShoppingCartTable() {
 
   return (
     <>
-      <Card className="h-full w-full shadow-none">
-        <table className="w-full min-w-max table-auto text-left">
+      <Card className="h-full w-full shadow-none overflow-x-scroll">
+        <table className="w-full min-w-max table-auto text-left ">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
@@ -75,8 +76,8 @@ export function ShoppingCartTable() {
           </tbody>
         </table>
       </Card>
-      <div className="flex justify-between my-16">
-        <div className="w-1/2">
+      <div className="flex flex-col md:flex-row gap-12 justify-between my-16">
+        <div className="md:w-1/2 w-full">
           <h1 className="text-2xl font-semibold">Cart Totals</h1>
           <div className="flex flex-col gap-1 mt-5 font-medium">
             <div className="flex justify-between py-3 border-b-2 border-gray-600">
@@ -94,15 +95,10 @@ export function ShoppingCartTable() {
           </div>
 
           <div>
-            <Button className=" tracking-normal bg-red-600 rounded-none px-6 py-4 mt-5">
-              <span className=" capitalize text-[#e5dfdf] text-[14px]">
-                Checkout now
-              </span>
-            </Button>
+            <PaymentDialog/>
           </div>
         </div>
-
-        <div className="w-1/3">
+        <div className="md:w-1/3">
           <div>
             <h1>If you have a promo code eneter here</h1>
             <form className="relative flex w-full max-w-[32rem] mx-auto mt-6">

@@ -36,7 +36,7 @@ export function ShoppingCartTable() {
               const classes = isLast ? "py-4" : "py-4 border-b border-black";
 
               return (
-                <tr key={title}>
+                <tr key={_id}>
                   <td className={classes}>
                     <Link
                       as="div"
@@ -50,7 +50,7 @@ export function ShoppingCartTable() {
                     <div className="font-semibold">{title}</div>
                   </td>
                   <td className={classes}>
-                    <div className="font-semibold">{new_price}</div>
+                    <div className="font-semibold">${new_price}</div>
                   </td>
                   <td className={classes}>
                     <Button className="font-semibold bg-white rounded-none shadow-sm text-black">{quantity}</Button>

@@ -1,4 +1,4 @@
-import bannerWomens from "../components/Assets/banner_women.png";
+import bannerKids from "../components/Assets/banner_kids.png";
 import { Select, Option } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -47,7 +47,7 @@ export default function Kids() {
   return (
     <div className="md:container mx-auto lg:px-10 px-[15px] my-5">
       <div>
-        <img src={bannerWomens} alt="banner womens" />
+        <img src={bannerKids} alt="banner womens" />
       </div>
 
       <div className="flex justify-between my-6 items-center">

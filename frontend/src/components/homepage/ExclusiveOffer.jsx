@@ -2,9 +2,9 @@ import exclusiveImg from "../Assets/exclusive_image.png";
 import { Button } from "@material-tailwind/react";
 export default function ExclusiveOffer() {
   return (
-    <div className="bg-gradient-to-b from-[#fde1ff] to-[#ffffff] bg-opacity-60 h-[80vh]">
-      <main className="md:container mx-auto lg:px-24 px-[30px] flex items-center h-full justify-between select-none">
-        <div className="flex justify-between items-center flex-wrap w-full">
+    <div className="bg-gradient-to-b from-[#fde1ff] to-[#ffffff] bg-opacity-60 md:h-[80vh]">
+      <main className="md:container mx-auto lg:px-24 md:px-[30px] py-5 flex items-center h-full justify-between select-none">
+        <div className="flex justify-between items-center flex-wrap w-full p-5">
           <div className="lg:w-1/2 h-full w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <div className=" tracking-tighter font-semibold text-6xl">
               <div className="flex py-4 ">
@@ -25,7 +25,7 @@ export default function ExclusiveOffer() {
           </div>
           <img
             alt="ecommerce"
-            className="lg:w-1/3 w-full lg:h-auto h-64 object-cover object-center rounded select-none"
+            className="md:w-1/3 h-auto object-cover object-center rounded select-none"
             src={exclusiveImg}
           />
         </div>

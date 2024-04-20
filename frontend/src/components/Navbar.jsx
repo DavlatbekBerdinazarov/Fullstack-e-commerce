@@ -22,8 +22,8 @@ export default function Navbar() {
     <header className="w-full py-2 border-b shadow-sm">
       <nav className="md:container mx-auto lg:px-10 px-[15px] flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <img className="w-14" src={big_logo} alt="big logo" />
-          <h1 className="uppercase text-3xl font-medium">Shopper</h1>
+          <img className="w-10 md:w-14" src={big_logo} alt="big logo" />
+          <h1 className="uppercase text-2xl md:text-3xl font-semibold md:font-medium">Shopper</h1>
         </Link>
 
         {/* category */}

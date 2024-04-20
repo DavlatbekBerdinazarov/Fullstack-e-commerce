@@ -5,7 +5,7 @@ export default function PopularWomen() {
   return (
     <section className="py-12">
       <div className="w-[400px] mx-auto flex justify-center flex-col items-center gap-2">
-        <h1 className="text-center tracking-tighter font-semibold text-4xl uppercase">
+        <h1 className="text-center tracking-tighter font-semibold text-2xl md:text-4xl uppercase">
           Popular in women
         </h1>
         <div className="w-1/2 h-2 bg-black rounded-sm"></div>

@@ -15,8 +15,8 @@ export default function Footer() {
       <div className="md:container mx-auto lg:px-10 px-[15px] ">
         <div className="flex flex-col gap-6 items-center mb-8">
           <Link to='/' className="flex items-center gap-2">
-            <img className="w-14" src={big_logo} alt="big logo" />
-            <h1 className="uppercase text-3xl font-medium">Shopper</h1>
+            <img className="w-12 md:w-14" src={big_logo} alt="big logo" />
+            <h1 className="uppercase text-2xl md:text-3xl font-semibold md:font-medium">Shopper</h1>
           </Link>
 
           {/* category */}

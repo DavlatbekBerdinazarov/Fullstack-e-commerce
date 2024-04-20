@@ -33,7 +33,7 @@ export function ShoppingCartTable() {
           <tbody>
             {cartData.map(({ image, title, new_price, _id, quantity }, index) => {
               const isLast = index === cartData.length - 1;
-              const classes = isLast ? "py-4" : "py-4 border-b border-black";
+              const classes = isLast ? "py-4 max-w-[200px]" : "py-4 border-b border-black max-w-[200px]";
 
               return (
                 <tr key={_id}>
@@ -109,9 +109,9 @@ export function ShoppingCartTable() {
               <Input
                 type="email"
                 placeholder="Enter Coupon"
-                className="!border !border-gray-300 rounded-none py-6 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                className="!border !border-gray-300  rounded-none py-6 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                 labelProps={{
-                  className: "h_idden",
+                  className: "hidden",
                 }}
                 onChange={onChange}
                 containerProps={{ className: "min-w-[100px]" }}

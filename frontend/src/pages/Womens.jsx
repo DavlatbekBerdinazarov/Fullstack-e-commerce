@@ -50,16 +50,14 @@ export default function Womens() {
         <img src={bannerWomens} alt="banner womens" />
       </div>
 
-      <div className="flex justify-between my-6 items-center">
+      <div className="flex md:flex-row flex-col justify-between my-6 md:items-center">
         <h2>Showing 1-12 out of {womensProduct.length} products</h2>
         <div className="flex gap-8 justify-center items-center">
           <h3>Sort:</h3>
           <Select variant="static" className="">
-            <Option>HTML</Option>
-            <Option>React</Option>
-            <Option>Vue</Option>
-            <Option>Angular</Option>
-            <Option>Svelte</Option>
+            <Option>Cost</Option>
+            <Option>Category</Option>
+            <Option>Date</Option>
           </Select>
         </div>
       </div>

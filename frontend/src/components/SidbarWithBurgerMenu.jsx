@@ -53,12 +53,6 @@ export function SidebarWithBurgerMenu() {
                   />
                   <h2>{username}</h2>
                 </div>
-                <div
-                  onClick={handleLogout}
-                  className="hover:font-medium hover:text-cherry font-normal mt-5 block"
-                >
-                  Logout{" "}
-                </div>{" "}
               </div>
             ) : (
               <div className="mt-4 font-normal">
@@ -204,14 +198,12 @@ export function SidebarWithBurgerMenu() {
                 Settings
               </ListItem>
             </Link>
-            <Link>
-              <ListItem>
-                <ListItemPrefix>
-                  <PowerIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                Log Out
-              </ListItem>
-            </Link>
+            <ListItem onClick={handleLogout}>
+              <ListItemPrefix>
+                <PowerIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Log Out
+            </ListItem>
           </List>
         </Card>
       </Drawer>

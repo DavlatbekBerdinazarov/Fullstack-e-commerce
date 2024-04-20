@@ -59,10 +59,10 @@ export function ShoppingCartTable() {
                     <div className="font-semibold">${quantity * new_price}</div>
                   </td>
                   <td className={classes}>
-                    <div className="flex justify-center text-center">
+                    <div className="flex justify-center text-center ">
                       <IoClose
                         onClick={() => handleRemoveFromCart(_id)}
-                        className="font-semibold text-2xl"
+                        className="font-semibold text-2xl hover:bg-gray-300 hover:rounded-full cursor-pointer"
                       />
                     </div>
                   </td>

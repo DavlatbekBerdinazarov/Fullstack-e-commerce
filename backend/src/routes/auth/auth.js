@@ -4,6 +4,38 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const generateToken = require("../../service/token");
 
+router.get('/all-users', async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const allUsers = await User.find().lean();
+    // Send the fetched users as a response
+    res.status(200).json(allUsers);
+  }
+  catch (error) {
+    // If an error occurs during fetching, send an error response
+    console.error("Error fetching users:", error);
+    res
+     .status(500)
+     .json({ error: "An error occurred while fetching users" });
+  }
+})
+
+router.get("/all-users/:id", async (req, res) => {
+  try {
+    // Find the user by id
+    const user = await User.findById(req.params.id).lean();
+    // Send the fetched user as a response
+    res.status(200).json(user);
+  }
+  catch (error) {
+    // If an error occurs during fetching, send an error response
+    console.error("Error fetching user:", error);
+    res
+     .status(500)
+     .json({ error: "An error occurred while fetching user" });
+  }
+})
+
 router.post("/register", async (req, res) => {
   try {
     // Check if request body is empty
@@ -64,5 +96,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "An error occurred during login" });
   }
 });
+
 
 module.exports = router;

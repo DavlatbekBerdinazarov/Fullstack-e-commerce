@@ -59,6 +59,8 @@ export default function MainLayout() {
     setCartData(updatedCartData.filter((product) => product.quantity > 0));
   };
 
+  console.log(cartData);
+
   // my cart page
   const removeAllItems = () => {
     setCartData([]);

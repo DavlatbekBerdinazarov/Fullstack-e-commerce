@@ -1,9 +1,11 @@
 import { Card } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
+import { FiEdit } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const TABLE_HEAD = ["Products", "Title", "New Price", "Old Price", "Category", "Remove"];
+const TABLE_HEAD = ["Products", "Title", "New Price", "Old Price", "Category", "Remove", "Edit"];
 
 export default function AllProducts() {
   const [allProducts, setAllProducts] = useState([]);
@@ -27,7 +29,7 @@ export default function AllProducts() {
 
   console.log(allProducts)
 
-  const handleRemoveFromCart = async (productId) => {
+  const handleRemoveProduct = async (productId) => {
     try {
       await axios.delete(`http://localhost:4545/api/deleteproduct/${productId}`);
       // Update the list of products after deletion
@@ -37,6 +39,10 @@ export default function AllProducts() {
       // Handle error state or display an error message
     }
   };
+
+  const handleEditProduct = (id) => {
+    null
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +60,7 @@ export default function AllProducts() {
     <div className="w-full pl-5 pt-5">
       <Card className="h-[85vh] xl:w-3/4 py-8 px-16">
         <h2 className="text-center font-semibold text-2xl text-black pb-4">All Products List ({allProducts.length})</h2>
-        <div className="max-h-full h-[500px] overflow-y-scroll select-none">
+        <div className="max-h-full h-[500px] overflow-y-scroll">
           <table className="w-full min-w-max text-left">
             <thead>
               <tr>
@@ -71,7 +77,7 @@ export default function AllProducts() {
             <tbody>
               {allProducts.map(({ image, title, new_price, old_price, _id, category }, index) => {
                 const isLast = index === allProducts.length - 1;
-                const classes = isLast ? "pt-6 max-w-40" : "py-6 border-b border-black max-w-40";
+                const classes = isLast ? "pt-6 pr-3 max-w-40" : "py-6 pr-3 border-b border-black max-w-40";
 
                 return (
                   <tr key={index}>
@@ -93,12 +99,19 @@ export default function AllProducts() {
                       <div className="font-semibold">{category}</div>
                     </td>
                     <td className={classes}>
-                      <div className="flex justify-center text-center">
+                      <div  className="flex justify-center text-center">
                         <IoClose
-                          onClick={() => handleRemoveFromCart(_id)}
                           className="font-semibold text-2xl cursor-pointer hover:bg-gray-300 hover:rounded-full"
                         />
                       </div>
+                    </td>
+                    <td className={classes}>
+                      <Link to={`/dashboard/edit-product/${_id}`} className="flex justify-center text-center">
+                        <FiEdit
+                          onClick={() => handleEditProduct(_id)}
+                          className="font-semibold text-2xl cursor-pointer hover:text-gray-900"
+                        />
+                      </Link>
                     </td>
                   </tr>
                 );

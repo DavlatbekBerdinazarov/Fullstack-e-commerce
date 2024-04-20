@@ -13,18 +13,27 @@ import {
   
   export default function Login() {
     const [switchLogin, setSwitchLogin] = useState(true);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
 
     const navigate = useNavigate();
+    
+    const onSubmitSignIn = (e) => {
+      e.preventDefault();
+
+      if (email == "davlatberdinazarov@gmail.com" && password == "123") {
+        navigate('/dashboard');
+      }
+      else {
+        alert('Please enter correct form');
+      }
+    };
 
     const onSubmitSignUp = (e) => {
       e.preventDefault();
       navigate('/dashboard');
     };
   
-    const onSubmitSignIn = (e) => {
-      e.preventDefault();
-      navigate('/dashboard');
-    };
   
     return (
       <div className="bg-gradient-to-b from-[#fde1ff] to-[#ffffff] h-[90vh]">
@@ -43,8 +52,8 @@ import {
               </Typography>
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
-              <Input type="email" label="Email" size="lg" required />
-              <Input type="password" label="Password" size="lg" required />
+              <Input onChange={e => setEmail(e.target.value)} type="email" label="Email" size="lg" required />
+              <Input onChange={e => setPassword(e.target.value)} type="password" label="Password" size="lg" required />
               <div className="-ml-2.5">
                 <Checkbox label="Remember Me" />
               </div>

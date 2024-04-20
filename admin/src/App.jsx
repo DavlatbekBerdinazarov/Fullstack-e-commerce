@@ -6,6 +6,7 @@ import AllProducts from "./pages/AllProducts";
 import AddProduct from "./pages/AddProduct";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import EditProduct from "./pages/EditProduct";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="dashboard" element={<MainLayout />}>
             <Route index element={<AllProducts />} />{" "}
             <Route path="add-product" element={<AddProduct />} />
+            <Route path="edit-product/:id" element={<EditProduct />} />
           </Route>
           <Route path="*" element={<NotFound to="/" />} />
         </Route>

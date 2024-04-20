@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 export default function Nav() {
-  const isFilledProfile = true;
+
   return (
     <header className="w-full py-2 border-b shadow">
       <nav className="lg:px-14 mx-auto px-[15px] flex justify-between items-center">

@@ -7,7 +7,7 @@ import { ShoppingCartContext } from "../layouts/MainLayout";
 
 export default function Navbar() {
   const [activeNav, setActiveNav] = useState("/");
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const location = useLocation();
 
   const { cartData } = useContext(ShoppingCartContext);
@@ -16,21 +16,28 @@ export default function Navbar() {
     const pathname = location.pathname;
     setActiveNav(pathname);
 
-  // Check if user is logged in and get username from localStorage
-  let loggedInUser = localStorage.getItem('user');
-  let parsedUserData = JSON.parse(loggedInUser);
-  if (parsedUserData && parsedUserData.username) {
-    setUsername(parsedUserData.username);
-  }
-  console.log(JSON.parse(loggedInUser));
+    // Check if user is logged in and get username from localStorage
+    let loggedInUser = localStorage.getItem("user");
+    let parsedUserData = JSON.parse(loggedInUser);
+    if (parsedUserData && parsedUserData.username) {
+      setUsername(parsedUserData.username);
+    }
+    console.log(JSON.parse(loggedInUser));
   }, [location]);
 
-  console.log(username)
+  const handleLogout = () => {
+    // Remove user data from local storage
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    // Redirect to login page
+    window.location.href = "/login";
+  };
 
   return (
     <header className="w-full py-2 border-b shadow-sm">
       <nav className="md:container mx-auto lg:px-10 px-[15px] flex justify-between items-center">
-        <Link to='/' className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <img className="w-14" src={big_logo} alt="big logo" />
           <h1 className="uppercase text-3xl font-medium">Shopper</h1>
         </Link>
@@ -74,12 +81,13 @@ export default function Navbar() {
         {/* cart login */}
         <div className="flex gap-5 items-center select-none">
           {username ? (
-            <div className="flex items-center">
-              <span className="mr-2 text-sm">Welcome, {username}</span>
+            <div className="flex gap-3 items-center">
+              <span className="mr-2 text-md font-semibold">{username}</span>
               <Link to="/logout">
                 <Button
                   variant="outlined"
                   className="rounded-full capitalize font-medium text-sm px-8"
+                  onClick={handleLogout}
                 >
                   Logout
                 </Button>
@@ -98,9 +106,11 @@ export default function Navbar() {
 
           <Link to="/cart" className="relative active:bg-blue-gray-50">
             <img className="w-8 h-8" src={cart_icon} alt="cart icon" />
-            {cartData.length > 0 && <div className="absolute -top-0 left-6 h-5 w-5 bg-red-500 rounded-full text-white flex items-center justify-center text-sm">
-              { cartData.length }
-            </div>}
+            {cartData.length > 0 && (
+              <div className="absolute -top-0 left-6 h-5 w-5 bg-red-500 rounded-full text-white flex items-center justify-center text-sm">
+                {cartData.length}
+              </div>
+            )}
           </Link>
         </div>
       </nav>

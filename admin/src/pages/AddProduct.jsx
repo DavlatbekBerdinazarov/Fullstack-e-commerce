@@ -33,7 +33,7 @@ export default function AddProducts() {
          navigate("/dashboard");
       })
       .catch((err) => {
-        console.log(1111,err);
+        console.log(err);
       });
   };
   

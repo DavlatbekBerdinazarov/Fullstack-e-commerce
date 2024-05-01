@@ -8,8 +8,13 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
+import { AdminPanelContext } from "../layouts/MainLayout";
+import { useContext, useEffect } from "react";
 export default function Nav() {
 
+  const { admin, profImg } = useContext(AdminPanelContext);
+
+  
   return (
     <header className="w-full py-2 border-b shadow">
       <nav className="lg:px-14 mx-auto px-[15px] flex justify-between items-center">
@@ -22,11 +27,11 @@ export default function Nav() {
           <MenuHandler>
             <div className="flex items-center gap-4">
               <Avatar
-                src="https://docs.material-tailwind.com/img/face-2.jpg"
+                src={ profImg }
                 alt="avatar"
               />
               <div>
-                <Typography variant="h6">Tania Andrew</Typography>
+                <Typography className=" capitalize" variant="h6">{ admin }</Typography>
                 <Typography
                   variant="small"
                   color="gray"

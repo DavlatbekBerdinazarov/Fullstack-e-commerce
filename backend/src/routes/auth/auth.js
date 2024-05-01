@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../../models/User");
+const Admin = require("../../models/Admin");
 const generateToken = require("../../service/token");
+const multer = require("multer");
+const path = require("path");
 
 router.get('/all-users', async (req, res) => {
   try {
@@ -92,6 +95,125 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ message: "Login successful", user: user, token: token });
   } catch (error) {
     // Handle any errors that occur during login
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "An error occurred during login" });
+  }
+});
+
+// admins and super admins
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+})
+
+
+// REGISTER
+router.post('/register-admin', upload.single('file'), async (req, res) => {
+  try {
+    const { login, password } = req.body;
+    const file = req.file.filename
+    const hashedPassword = await bcrypt.hash(password, 10); // Salt rounds: 10
+
+    const newAdmin = new Admin({
+      login: login,
+      password: hashedPassword,
+      file: file,
+    })
+
+    const savedAdmin = await newAdmin.save();
+
+    const token = generateToken(savedAdmin._id);
+
+    res.status(201).json({ adminToken: token, admin: savedAdmin});
+  }
+  catch (error) {
+    console.error("Error adding admin:", error);
+    res.status(500).json({ error: "An error occurred while adding the admin" });
+  }
+})
+
+router.get('/register-admin', async (req, res) => {
+  try {
+    const allAdmins = await Admin.find().lean();
+    res.status(200).json(allAdmins);
+  }
+  catch (error) {
+    console.error("Error fetching admins:", error);
+    res
+     .status(500)
+     .json({ error: "An error occurred while fetching admins" });
+  }
+})
+
+// PUT REGISTER ONLY ADMIN CAN DO IT
+
+router.put('/register-update/:adminId', upload.single('file'), async (req, res) => {
+  try {
+    const adminId = req.params.adminId;
+
+    const { login, password } = req.body;
+    const file = req.file.filename; // Assuming you're only updating the file
+
+    // Find admin by id
+    const admin = await Admin.findById(adminId);
+
+    if (!admin) {
+      return res.status(404).json({ error: "Admin not found" });
+    }
+
+    // Hash the password if it's provided
+    const hashedPassword = password ? await bcrypt.hash(password, 10) : admin.password;
+
+    // Update the admin with the new data
+    admin.login = login;
+    admin.password = hashedPassword;
+    admin.file = file;
+
+    // Save the updated admin
+    const updatedAdmin = await admin.save();
+
+    // Send the updated admin as a response
+    res.status(200).json(updatedAdmin);
+  } catch (error) {
+    console.error("Error updating admin:", error);
+    res.status(500).json({ error: "An error occurred while updating the admin" });
+  }
+});
+
+
+// /REGISTER 
+
+
+
+router.post('/login-admin', async (req, res) => {
+  try {
+    const { login, password } = req.body;
+    const admin = await Admin.findOne({ login });
+
+    if (!admin) {
+      return res.status(404).json({ error: "Admin not found" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, admin.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const token = generateToken(admin._id);
+
+    res.status(200).json({ adminToken: token, admin: admin });
+  }
+  catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ error: "An error occurred during login" });
   }
